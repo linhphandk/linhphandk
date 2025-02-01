@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import React from "react";
 import { createRoot } from "react-dom/client";
-const A: FC = () => <h1>hello</h1>;
+import App from "./App";
 const root = document.querySelector("#root");
 if (root != null) {
-  createRoot(root).render(<A />);
+  createRoot(root).render(<App />);
 }
