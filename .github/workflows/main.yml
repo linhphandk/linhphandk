@@ -1,36 +1,39 @@
-name: Upload Website
+name: Build and Deploy to S3
 
 on:
   push:
     branches:
-    - main
+      - main  # Adjust if needed
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 18  # Adjust as needed
+          cache: 'npm'
+
       - name: Install dependencies
-        run: npm install
-      - name: Build
+        run: npm ci  # Faster than npm install
+
+      - name: Build project
         run: npm run build
-      - name: Test
-        run: ls
-      - name: Checkout
-        uses: actions/checkout@v1
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Deploy to S3
+        uses: jakejarvis/s3-sync-action@v0.5.1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-          aws-region: eu-central-1
-
-      - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./dist s3://thachlinhphan.com --delete
+          args: --acl public-read --delete  # Optional: set permissions and delete removed files
+        env:
+          AWS_S3_BUCKET: thachlinhphan.com
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          AWS_REGION: us-east-1  # Change as needed
+          SOURCE_DIR: dist  # Adjust if your build output directory is different
       - name: Invalidate Cloudfront cache
         run: aws cloudfront create-invalidation --distribution-id ENUWVE2LTQ0Z1 --paths "/*"
