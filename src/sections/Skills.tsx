@@ -1,4 +1,4 @@
-import React, {FC, ReactElement} from 'react';
+import React, { FC, forwardRef, ReactElement } from 'react';
 import HTMLIcon from '../../public/icons/html.svg'
 import CSSIcon from '../../public/icons/css.svg'
 import JSIcon from '../../public/icons/js.svg'
@@ -20,54 +20,54 @@ import PostgresIcon from '../../public/icons/postgres.svg'
 import SkillArea from '../components/SkillArea/SkillArea';
 export type Tech = {
   name: string,
-  image: ReactElement 
+  image: ReactElement
 }
 export type Area = {
   title: string;
   items: Tech[]
 }
-const a:Area = {
+const a: Area = {
   title: "Languages",
   items: [
-    {name: "HTML", image: <HTMLIcon />},
-    {name: "HTML", image: <CSSIcon/>},
-    {name: "HTML", image: <JSIcon/>},
-    {name: "HTML", image: <TSIcon/>},
-    {name: "HTML", image: <JavaIcon/>},
-    {name: "HTML", image: <PythonIcon/>},
+    { name: "HTML", image: <HTMLIcon /> },
+    { name: "HTML", image: <CSSIcon /> },
+    { name: "HTML", image: <JSIcon /> },
+    { name: "HTML", image: <TSIcon /> },
+    { name: "HTML", image: <JavaIcon /> },
+    { name: "HTML", image: <PythonIcon /> },
   ]
 }
-const b:Area = {
+const b: Area = {
   title: "Libraries and Frameworks",
   items: [
-    {name: "React.js", image: <ReactIcon/>},
-    {name: "NextJS", image: <NextIcon/>},
-    {name: "Redux", image: <ReduxIcon/>},
-    {name: "Styled components", image: <StyledIcon/>},
-    {name: "Jest", image: <JestIcon/>},
-    {name: "Cyperess", image: <CyperssIcon/>},
-    {name: "Django", image: <DjangoIcon/>},
-    {name: "Storybook", image: <StorybookIcon/>},
+    { name: "React.js", image: <ReactIcon /> },
+    { name: "NextJS", image: <NextIcon /> },
+    { name: "Redux", image: <ReduxIcon /> },
+    { name: "Styled components", image: <StyledIcon /> },
+    { name: "Jest", image: <JestIcon /> },
+    { name: "Cyperess", image: <CyperssIcon /> },
+    { name: "Django", image: <DjangoIcon /> },
+    { name: "Storybook", image: <StorybookIcon /> },
 
   ]
 }
-const c:Area = {
+const c: Area = {
   title: "Other tools",
   items: [
-    {name: "Webpack", image: <WebpackIcon/>},
-    {name: "Postgres", image: <PostgresIcon/>},
-    {name: "Docker", image: <DockerIcon/>},
-    {name: "GraphQL", image: <GraphqlIcon/>},
+    { name: "Webpack", image: <WebpackIcon /> },
+    { name: "Postgres", image: <PostgresIcon /> },
+    { name: "Docker", image: <DockerIcon /> },
+    { name: "GraphQL", image: <GraphqlIcon /> },
   ]
 }
-const Skills: FC = ()=>(
-  <main className="flex justify-center items-center flex-col lg:flex-row">
+const Skills = forwardRef<HTMLElement>((_, ref) => (
+  <main ref={ref} className="flex justify-center items-center flex-col lg:flex-row">
     <div className="flex flex-col">
-       
-  <h1 className="text-white text-4xl lg:text-6xl text-center">Skills</h1>
-       {[a,b,c].map((skill)=><SkillArea title={skill.title} items={skill.items}/>)}
+
+      <h1 className="text-white text-4xl lg:text-6xl text-center">Skills</h1>
+      {[a, b, c].map((skill) => <SkillArea title={skill.title} items={skill.items} />)}
     </div>
   </main>
-)
+))
 
 export default Skills;
