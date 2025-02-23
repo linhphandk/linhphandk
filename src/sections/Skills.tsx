@@ -18,6 +18,7 @@ import StorybookIcon from '../../public/icons/storybook.svg'
 import GraphqlIcon from '../../public/icons/graphql.svg'
 import PostgresIcon from '../../public/icons/postgres.svg'
 import SkillArea from '../components/SkillArea/SkillArea';
+import { HEADLINE1 } from '../lib/TailwindConstants';
 export type Tech = {
   name: string,
   image: ReactElement
@@ -61,13 +62,15 @@ const c: Area = {
   ]
 }
 const Skills = forwardRef<HTMLElement>((_, ref) => (
-  <main ref={ref} className="flex justify-center items-center flex-col lg:flex-row">
+  <section ref={ref} className="flex justify-center items-center flex-col lg:flex-row py-4">
     <div className="flex flex-col">
 
-      <h1 className="text-white text-4xl lg:text-6xl text-center">Skills</h1>
-      {[a, b, c].map((skill) => <SkillArea title={skill.title} items={skill.items} />)}
+      <h1 className={HEADLINE1 + " text-center"} style={{ color: "#D4AFB9" }}>Skills</h1>
+      <div className="flex flex-col gap-10">      {[a, b, c].map((skill) => <SkillArea title={skill.title} items={skill.items} />)}
+      </div>
+
     </div>
-  </main>
+  </section>
 ))
 
 export default Skills;
